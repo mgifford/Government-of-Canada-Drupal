@@ -1,0 +1,188 @@
+<?php
+
+/**
+ * @file
+ * Examples showing how to use some of the new JavaScript features in Drupal 7.
+ */
+
+/**
+ * @defgroup wetkit Example: JavaScript
+ * @ingroup examples
+ * @{
+ * Examples using Drupal 7's built-in JavaScript.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function wetkit_theme() {
+  return array(
+    'my_accordion' => array(
+      'path' => drupal_get_path('module', 'wetkit') . '/template',
+      'template' => 'accordion',
+      'variables' => array('title' => NULL),
+    ),
+    'webkit_graph' => array(
+      'path' => drupal_get_path('module', 'wetkit') . '/template',
+      'template' => 'graphs',
+      'variables' => array('title' => NULL),
+    ),
+  );
+}
+
+/**
+* Implement hook_help().
+*/
+function wetkit_help($path, $arg) {
+  if ($path == 'admin/help#wetkit') {
+    return t('WetKit allows for Accessibility Enhancements for the Government of Canada.');
+  }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function wetkit_menu() {
+  $items = array();
+  
+  //Main Config Screen
+  $items['admin/config/wetkit'] = array(
+  'title' => 'WetKit',
+  'description' => 'Configure WetKit settings.',
+  'position' => 'left',
+  'weight' => -20,
+  'page callback' => 'system_admin_menu_block_page',
+  'access arguments' => array('access administration pages'),
+  'file' => 'system.admin.inc',
+  'file path' => drupal_get_path('module', 'system'),
+	);
+  
+  //Main Config Screen Items
+  $items['admin/config/wetkit/settings'] = array(
+  	'title' => 'Settings',
+    'description' => 'Main Settings Page for WET Accessibility and Configuration Parameters',
+    'type' => MENU_NORMAL_ITEM,
+  	'page callback' => 'drupal_get_form',
+    'page arguments' => array('wetkit_settings_form'),
+  	'access arguments' => array('access administration pages'),	
+    'file' => 'wet.settings.inc',
+    'file path' => drupal_get_path('module', 'wetkit') . '/components',
+    'weight' => -20,
+	);
+  $items['admin/config/wetkit/display'] = array(
+  	'title' => 'Display Enhancement Features',
+    'description' => 'Display Enhancements Configuration Settings',
+    'type' => MENU_NORMAL_ITEM,
+  	'page callback' => 'drupal_get_form',
+    'page arguments' => array('wetkit_displayenhance_form'),
+  	'access arguments' => array('access administration pages'),	
+    'file' => 'wet.displayenhancements.inc',
+    'file path' => drupal_get_path('module', 'wetkit') . '/components',
+	);
+  $items['admin/config/wetkit/forminterface'] = array(
+  	'title' => 'Form Interface Features',
+    'description' => 'Form Interface Configuration Settings',
+    'type' => MENU_NORMAL_ITEM,
+  	'page callback' => 'drupal_get_form',
+    'page arguments' => array('wetkit_displayenhance_form'),
+  	'access arguments' => array('access administration pages'),	
+    'file' => 'wet.forminterface.inc',
+    'file path' => drupal_get_path('module', 'wetkit') . '/components',
+	);
+  $items['admin/config/wetkit/sharing'] = array(
+  	'title' => 'Information Sharing Features',
+    'description' => 'Information Sharing Configuration Settings',
+    'type' => MENU_NORMAL_ITEM,
+  	'page callback' => 'drupal_get_form',
+    'page arguments' => array('wetkit_displayenhance_form'),
+  	'access arguments' => array('access administration pages'),	
+    'file' => 'wet.informationsharing.inc',
+    'file path' => drupal_get_path('module', 'wetkit') . '/components',
+	);
+  $items['admin/config/wetkit/interfaceenhance'] = array(
+  	'title' => 'Interface Enhancement Features',
+    'description' => 'Interface Enhancement Configuration Settings',
+    'type' => MENU_NORMAL_ITEM,
+  	'page callback' => 'drupal_get_form',
+    'page arguments' => array('wetkit_displayenhance_form'),
+  	'access arguments' => array('access administration pages'),	
+    'file' => 'wet.interfaceenhance.inc',
+    'file path' => drupal_get_path('module', 'wetkit') . '/components',
+	);
+  
+  //Main Settings Area
+  $items['admin/config/wetkit/settings/overview'] = array(
+    'title' => 'Overview',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('wetkit_overview_form'),
+  	'access arguments' => array('access administration pages'),	
+    'file' => 'wet.settings.inc',
+    'file path' => drupal_get_path('module', 'wetkit') . '/components',
+    'weight' => 0,
+  );
+  
+  //Display Enhancements Settings Area
+  $items['admin/config/wetkit/display/overview'] = array(
+    'title' => 'Display Enhance Settings',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('wetkit_overview_form'),
+  	'access arguments' => array('access administration pages'),	
+    'file' => 'wet.displayenhancements.inc',
+    'file path' => drupal_get_path('module', 'wetkit') . '/components',
+    'weight' => 0,
+  );
+  $items['admin/config/wetkit/display/graph'] = array(
+    'title' => 'Graph Ex',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('wetkit_graphs_form'),
+  	'access arguments' => array('access administration pages'),	
+    'file' => 'wet.graphs.inc',
+    'file path' => drupal_get_path('module', 'wetkit') . '/components',
+  );
+  $items['admin/config/wetkit/display/roundedcorners'] = array(
+    'title' => 'Rounded Corners Ex',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('wetkit_graphs_form'),
+  	'access arguments' => array('access administration pages'),	
+    'file' => 'wet.graphs.inc',
+    'file path' => drupal_get_path('module', 'wetkit') . '/components',
+    'weight' => 1,
+  );
+  $items['admin/config/wetkit/display/formula'] = array(
+    'title' => 'Scientific Formula Ex',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('wetkit_graphs_form'),
+  	'access arguments' => array('access administration pages'),	
+    'file' => 'wet.graphs.inc',
+    'file path' => drupal_get_path('module', 'wetkit') . '/components',
+    'weight' => 1,
+  );
+  return $items;
+}
+
+/**
+ * wetkit init.
+ */
+function wetkit_init() {  
+  static $done = false;  
+  if ($done) {
+    return;
+  }
+  $done = true;
+  $module_path = drupal_get_path('module', 'wetkit');
+  $library_path = $module_path;
+  if (function_exists('libraries_get_path')) {
+    $library_path = libraries_get_path('wet-boew-jquery');
+    drupal_add_js($library_path  . '/js/pe-ap.js'); 
+    drupal_add_js(drupal_get_path('module', 'wetkit') . '/js/wet.js');
+  }
+  if ( (variable_get('wetkit_graphs_enable', FALSE) == 1) && (variable_get('wetkit_graphs_javascript', NULL) != NULL) ) 
+  {
+    //$varparams = variable_get('wetkit_graphs_javascript', NULL);
+  }
+}

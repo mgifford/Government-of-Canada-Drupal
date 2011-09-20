@@ -1,0 +1,112 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for the Facet API module.
+ */
+
+/**
+ * Implementation of hook_schema().
+ */
+function facetapi_schema() {
+  $schema['facetapi'] = array(
+    'description' => 'Facet configurations.',
+    'export' => array(
+      'key' => 'name',
+      'identifier' => 'facet',
+      'default hook' => 'facetapi_default_facet_settings',
+      'status' => 'facetapi_facet_status',
+      'api' => array(
+        'owner' => 'facetapi',
+        'api' => 'facetapi',
+        'minimum_version' => 1,
+        'current_version' => 1,
+      ),
+      'export callback' => 'facetapi_export_facet_settings',
+    ),
+    'fields' => array(
+      'name' => array(
+        'description' => 'The machine readable name of the configuration.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'searcher' => array(
+        'description' => 'The machine readable name of the searcher.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'realm' => array(
+        'description' => 'The machine readable name of the realm.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'facet' => array(
+        'description' => 'The machine readable name of the facet.',
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'enabled' => array(
+        'description' => 'Whether the facet is enabled.',
+        'type' => 'int',
+        'size' => 'tiny',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+      'settings' => array(
+        'description' => 'Serialized storage of general settings.',
+        'type' => 'text',
+        'serialize' => TRUE,
+      ),
+    ),
+    'primary key' => array('name'),
+  );
+
+  return $schema;
+}
+
+/**
+ * Implementation of hook_install().
+ */
+function facetapi_install() {
+  // Nothing to do...
+}
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function facetapi_uninstall() {
+  // Remove all variables that start with "facetapi:".
+  $args = array(':module' => 'facetapi%');
+  $result = db_query('SELECT name FROM {variable} WHERE name LIKE :module', $args);
+  foreach ($result as $record) {
+    variable_del($record->name);
+  }
+}
+
+/**
+ * Update hashed block deltas to a URL-safe form.
+ */
+function facetapi_update_7000() {
+  $result = db_query("SELECT name FROM {facetapi}");
+  foreach ($result as $f) {
+    if (strlen($r->name) > 32) {
+      $orig_delta = substr(base64_encode(hash('sha256', $r->name, TRUE)), 0, 32);
+      $new_delta = strtr($orig_delta, array('+' => '-', '/' => '_', '=' => ''));
+      db_update('block')
+        ->fields(array(
+          'delta' => $new_delta,
+        ))
+        ->condition('module', 'facetapi')
+        ->condition('delta', $orig_delta)
+        ->execute();
+    }
+  }
+}

@@ -1,0 +1,75 @@
+name = GovCan
+description = MANDATORY: Installation Profile created for the Government of Canada utilizing Drupal 7.
+core = 7.x
+
+;CORE
+dependencies[] = block
+dependencies[] = color
+dependencies[] = comment
+dependencies[] = contextual
+dependencies[] = dashboard
+dependencies[] = help
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = taxonomy
+dependencies[] = dblog
+dependencies[] = search
+dependencies[] = shortcut
+dependencies[] = toolbar
+dependencies[] = overlay
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = rdf
+
+;CONTRIBUTED
+dependencies[] = admin_menu
+dependencies[] = ctools
+dependencies[] = views
+dependencies[] = views_ui
+dependencies[] = diff
+dependencies[] = features
+dependencies[] = context
+dependencies[] = context_layouts
+dependencies[] = context_ui
+dependencies[] = strongleg
+dependencies[] = strongarm
+dependencies[] = variable
+dependencies[] = variable_admin
+dependencies[] = variable_advanced
+dependencies[] = variable_realm
+dependencies[] = variable_store
+dependencies[] = pathauto
+dependencies[] = libraries
+dependencies[] = module_filter
+dependencies[] = custom_breadcrumbs
+dependencies[] = link
+
+;MULTILINGUALISM
+dependencies[] = i18n
+dependencies[] = i18n_block
+dependencies[] = i18n_contact
+dependencies[] = i18n_field
+dependencies[] = i18n_menu
+dependencies[] = i18n_node
+dependencies[] = i18n_path
+dependencies[] = i18n_redirect
+dependencies[] = i18n_select
+dependencies[] = i18n_string
+dependencies[] = i18n_sync
+dependencies[] = i18n_taxonomy
+dependencies[] = i18n_translation
+dependencies[] = i18n_variable
+
+;custom
+dependencies[] = wetkit
+dependencies[] = global_initial_settings
+
+;FILES
+files[] = govcan.install
+files[] = govcan.profile
+
+

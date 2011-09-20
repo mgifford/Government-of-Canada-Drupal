@@ -1,0 +1,22 @@
+<?php
+/**
+ * @file
+ * Code for the global_initial_settings feature.
+ */
+
+include_once('global_initial_settings.features.inc');
+
+function global_initial_settings_block_view_search_form_alter(&$data, $block) {
+   $data['title'] = t('Search this site');
+}
+
+function global_initial_settings_form_alter(&$form, $form_state, $form_id){
+ // dsm($form_id);
+}
+
+function global_initial_settings_page_alter(&$page) {
+global $user;
+if ($user->uid == 1) {
+unset($page['page_top']['toolbar']);
+}
+}

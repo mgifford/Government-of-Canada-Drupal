@@ -1,0 +1,310 @@
+/* Search Box */
+
+.region-solrsearch h3 {
+	background-color: #476FB2 !important;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	padding-left: 10px;
+	border: 1px solid #000;
+	color: #fff;
+}
+
+/* CKEditor */
+
+.form-textarea-wrapper {
+    width: 560px;
+}
+
+/* Workbench */
+
+#block-workbench-block {
+    margin: 20px 0px;
+}
+
+/* Tabs Styling */
+
+ul.primary {
+    padding: 0px;
+    border: none;
+    margin: 0px;
+    
+}
+ul.primary li a,
+ul.primary li.active a,
+ul.primary li.active a.active,
+ul.primary li a:hover{
+    
+    border-bottom: 1px solid #BBB;
+}
+
+/* Node Styling */
+
+#block-system-main {
+    margin: 20px 0px;
+}
+
+#block-system-main .item-list ul li {
+    
+    list-style-type: none;
+}
+
+.tabs-panel section {
+    margin-top: 15px;
+}
+
+/* Footer Styling */
+
+#cn-foot {
+    padding-top: 20px;
+}
+
+/* Views Table Styling */
+
+.view-health-indicators table th a {
+    color: #fff;
+}
+
+.view-health-indicators .attachment {
+    margin-bottom: 25px;
+}
+
+.view-health-indicators table.views-table {
+    margin-bottom: 15px;
+}
+
+/* Masqeurade Module Styling */
+
+#block-masquerade-masquerade .description {
+    padding: 5px;
+}
+
+#block-masquerade-masquerade #quick_switch_links {
+    padding: 10px 0px;
+}
+
+#block-masquerade-masquerade #quick_switch_links .item-list ul li a{
+    padding: 10px 0px;
+}
+
+#block-masquerade-masquerade input {
+	margin-top: 15px;
+}
+
+/* Overlay */
+
+.assistance .fieldset-description{
+    background-color: #f8fff0;
+    border: 1px solid #be7;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+}
+
+.horizontal-tabs-panes .description {
+    background-color: #f8fff0;
+    border: 1px solid #be7;
+    padding: 5px 10px;
+    margin-top: 15px !important;
+}
+
+/* Colorbox */
+
+.node-health-indicators .hide_desc {
+    display: none;
+}
+
+/* Search */
+
+.search-form .form-wrapper {
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#cn-cmb, #cn-cmb ul li {
+background-color: black;
+padding: 0px;
+}
+
+.cst-tbl-data {
+    margin-bottom: 15px;
+}
+
+
+#graphme-container1{
+    
+    display: none;
+}
+
+#admin-menu li.admin-menu-account > a {
+background: #911 url(../images/bkg-blue.png) bottom left repeat-x;
+}
+
+#cn-body-inner-3col, #cn-body-inner-2col, #cn-body-inner-1col {
+    
+    margin-top: 50px;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+
+
+.region-solrsearch .block-search {
+	background-color: #D7E0E8;
+	border-bottom: #000 solid 1px;
+	border-left: #000 solid 1px;
+	border-right: #000 solid 1px;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+	padding-left: 0.3em;
+	margin-bottom: 0.5em;
+}
+
+.region-solrsearch {
+	margin: 0px 0px 20px 0px;
+}
+
+#visualize-links {
+        margin-top: 20px;
+	padding-left: 20px;
+	float: right;
+	margin-bottom: 20px;
+}
+
+#visualize-links li {
+	display: inline;
+	padding-right: 5px;
+
+}
+
+.node-data-tables table,
+.visualize-bar, 
+.visualize-line, 
+.visualize-pie,
+.visualize-area
+{
+	margin-left: auto !important;
+	margin-right: auto !important;
+}
+
+.visualize-bar, 
+.visualize-line, 
+.visualize-pie,
+.visualize-area
+{	
+	margin-top: 30px !important;
+}
+
+.visualize .visualize-info {
+	background: none !important;
+}
+
+.visualize canvas {
+	margin: -5px !important;
+}
+
+
+#cn-cmb {
+	margin-bottom: 15px;
+}
+
+body{
+	background-color: #c0c0c0;
+        
+}
+
+.region-sidebar-first #sectionblock {
+ 	margin-bottom: 15px;
+
+}
+
+.region-sidebar-first .block {
+     margin-bottom: 15px;
+}
+
+ul.menu {
+	padding: 0px;
+	margin: 0px;
+}
+
+ul.primary {
+    line-height: 25px;
+    height:auto;
+    white-space: normal;
+}
+
+ul.primary li {
+    
+    white-space: nowrap;
+}
+
+.item-list ul li {
+	margin: 0px;
+}
+
+.region-sidebar-first li, .region-sidebar-second li {
+	list-style-image: none !important;
+	list-style-type: none !important;
+}
+
+.region-sidebar-first li.expanded .leaf {
+	margin-left: 20px;
+}
+
+.cn-left-col-default h3 + div {
+	border: 1px solid black;
+}
+
+
+#cn-cols {
+	margin-top: 10px;
+}
+
+a.feed-icon {
+	display: none;
+}
+
+.node-data-tables #tab-container {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+#graphme th, #graphme tbody td, #graphme2 th, #graphme2 tbody td, #graphme3 th, #graphme3 tbody td, #graphme4 th, #graphme4 tbody td 
+{border: 1px solid #000; border-collapse: collapse; padding: 5px; text-align: center;}
+
+#graphme caption, #graphme2 caption, #graphme3 caption, #graphme4 caption 
+{font-weight: bold;}
+
+.view-glossary-data-tables th.views-field a{
+    color: #fff;
+}
+
+.view-glossary-data-tables .views-summary{
+    margin: 20px 0px 30px 0px;
+}
+
+.view-glossary-data-tables .views-table{
+    margin: 20px 0px;
+}
+
+#lang_selector {
+    display: inline;
+    float: left;
+}

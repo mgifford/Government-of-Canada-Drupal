@@ -1,0 +1,20 @@
+name = WetKit
+description = A library of Enhancements for the Government of Canada focused on WCAG and Accessibility.
+package = WET
+core = 7.x
+version = 7.x-1.0-dev
+
+;dependencies
+dependencies[] = libraries
+
+;css files
+stylesheets[all][]   = css/base.css 
+stylesheets[all][]   = css/util.css
+; stylesheets[all][]   = css/theme-base/css/theme-base.css  
+stylesheets[print][] = css/pf-if.css  
+    
+;conditional css files
+stylesheets-conditional[IE 6][all][] = css/base-ie6.css
+; stylesheets-conditional[IE 6][all][] = css/theme-base/css/theme-base-ie6.css
+stylesheets-conditional[IE 7][all][] = css/base-ie7.css
+stylesheets-conditional[IE 8][all][] = css/base-ie8.css

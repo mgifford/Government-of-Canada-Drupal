@@ -1,0 +1,12 @@
+name = Workbench Files
+description = File-related features for the Workbench editorial suite.
+package = Workbench
+core = 7.x
+dependencies[] = workbench
+
+; Information added by drupal.org packaging script on 2011-08-26
+version = "7.x-1.0"
+core = "7.x"
+project = "workbench_files"
+datestamp = "1314385328"
+

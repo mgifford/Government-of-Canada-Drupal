@@ -1,0 +1,4 @@
+name = Strongleg
+description = A quick hack to let you use strongarm for variables that are used early in the boot process.
+core = 7.x
+dependencies[] = strongarm

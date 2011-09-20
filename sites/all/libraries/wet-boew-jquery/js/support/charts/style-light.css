@@ -1,0 +1,14 @@
+@charset "utf-8";
+/*!
+ * Charts and graphs support v1.01 / Soutien des graphiques v1.01
+ * Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+ * Terms and conditions of use: http://tbs-sct.ircan.gc.ca/projects/gcwwwtemplates/wiki/Terms
+ * Conditions régissant l'utilisation : http://tbs-sct.ircan.gc.ca/projects/gcwwwtemplates/wiki/Conditions
+ */
+.visualize {background:#ccc url(../images/chartbg-vanilla.png) top repeat-x; border-color: #ddd;}
+.visualize canvas {border-color:#aaa; background: #fff;}
+.visualize-labels-x li span.label, .visualize-labels-y li span.label {color: #444;}
+.visualize-labels-y li span.line {border-style: solid; opacity: .7;}
+.visualize .visualize-title {color: #333;}
+.visualize ul.visualize-key {background:#eee; color: #aaa;}
+.visualize ul.visualize-key .visualize-key-label {color: #333;}
