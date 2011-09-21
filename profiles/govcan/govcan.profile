@@ -169,6 +169,7 @@ function govcan_final_site_setup() {
   variable_del('radio_val3');
   variable_del('radio_val4');
   variable_del('radio_val5');
+  features_revert(array('global_initial_settings' => array('variable')));
 }
 
 function govcan_addmodules() {
@@ -195,7 +196,7 @@ function govcan_addmodules() {
   }
   if (variable_get('radio_val5', 0) == 1)
   {
-    features_revert(array('global_initial_settings' => array('variable')));
+    //features_revert(array('global_initial_settings' => array('variable')));
   }
 }
 
