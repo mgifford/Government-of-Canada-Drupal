@@ -26,3 +26,19 @@ function hook_workbench_moderation_access_alter(&$access, $op, $node) {
     $access = FALSE;
   }
 }
+
+/**
+ * Allows modules to respond to state transitions.
+ *
+ * @param $node
+ *  The node that is being transitioned.
+ *
+ * @param $previous_state
+ *  The state of the revision before the transition occurred.
+ *
+ * @param $new_state
+ *  The new state of the revision.
+ */
+function hook_workbench_moderation_transition($node, $previous_state, $new_state) {
+  // Your code here.
+}
