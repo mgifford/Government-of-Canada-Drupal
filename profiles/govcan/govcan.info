@@ -62,6 +62,7 @@ dependencies[] = i18n_sync
 dependencies[] = i18n_taxonomy
 dependencies[] = i18n_translation
 dependencies[] = i18n_variable
+dependencies[] = translation_overview
 
 ;custom
 dependencies[] = wetkit
