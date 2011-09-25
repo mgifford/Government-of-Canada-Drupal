@@ -80,13 +80,13 @@ function govcan_setup_form() {
   
   //Start setting up the form
   $form = array();
-  $form['govcan_import_banner'] = array(
-    '#type' => 'managed_file',
-    '#title' => st('Upload Image Banner'),
-    '#description' => st('The uploaded image will be displayed on the main banner and will reflect your department'),
-    '#default_value' => variable_get('govcan_import_banner', NULL),
-    '#upload_location' => 'public://custom_department_images/',
-  );
+  //$form['govcan_import_banner'] = array(
+  //  '#type' => 'managed_file',
+  //  '#title' => st('Upload Image Banner'),
+  //  '#description' => st('The uploaded image will be displayed on the main banner and will reflect your department'),
+  //  '#default_value' => variable_get('govcan_import_banner', NULL),
+  //  '#upload_location' => 'public://custom_department_images/',
+  //);
   $form['govcan_radioval1'] = array(
     '#type' => 'radios',
     '#title' => st('Enable Development Module(s)?'),
@@ -115,13 +115,13 @@ function govcan_setup_form() {
     '#options' => $options,
     '#description' => st('Modules that deal with Apache Solr Integration.'),
   );
-  $form['govcan_radioval5'] = array(
-    '#type' => 'radios',
-    '#title' => st('Automatically Revert Features?'),
-    '#default_value' =>  variable_get('radio_val5', 0),
-    '#options' => $options,
-    '#description' => st('Revert already installed Features Automatically.'),
-  );
+  //$form['govcan_radioval5'] = array(
+  //  '#type' => 'radios',
+  //  '#title' => st('Automatically Revert Features?'),
+  //  '#default_value' =>  variable_get('radio_val5', 0),
+  //  '#options' => $options,
+  //  '#description' => st('Revert already installed Features Automatically.'),
+  //);
   $form[] = array(
     '#type' => 'submit',
     '#value' => st('Save and continue'),
@@ -136,7 +136,7 @@ function govcan_setup_form_submit($form, &$form_state) {
     variable_set('radio_val2', $form_state['values']['govcan_radioval2']);
     variable_set('radio_val3', $form_state['values']['govcan_radioval3']);
     variable_set('radio_val4', $form_state['values']['govcan_radioval4']);
-    variable_set('radio_val5', $form_state['values']['govcan_radioval5']);
+    //variable_set('radio_val5', $form_state['values']['govcan_radioval5']);
     
     // Load the file via file.fid
     //$file = file_load($form_state['values']['govcan_import_banner']);
@@ -168,7 +168,7 @@ function govcan_final_site_setup() {
   variable_del('radio_val2');
   variable_del('radio_val3');
   variable_del('radio_val4');
-  variable_del('radio_val5');
+  //variable_del('radio_val5');
   features_revert(array('global_initial_settings' => array('variable')));
 }
 
@@ -193,10 +193,6 @@ function govcan_addmodules() {
   {
     $module_list = array('apachesolr','apachesolr_search','apachesolr_access','apachesolr_taxonomy','facetapi');
     module_enable($module_list, TRUE);
-  }
-  if (variable_get('radio_val5', 0) == 1)
-  {
-    //features_revert(array('global_initial_settings' => array('variable')));
   }
 }
 

@@ -97,9 +97,9 @@
 	<div id="cn-head">
 		<div id="cn-head-inner">
 			<header>
-
+        
 				<!-- clf-nsi2 theme begins / Début du thème clf-nsi2 -->
-				<div id="cn-sig"><img src="<?php print $base_path . $directory; ?>/images/sig-eng.gif" alt="<?php print t('Government of Canada'); ?>" title="<?php print t('Government of Canada'); ?>" /></div>
+				<div id="cn-sig"><img src="<?php print $base_path . $directory; ?>/images/sig.gif" alt="<?php print t('Government of Canada'); ?>" title="<?php print t('Government of Canada'); ?>" /></div>
 				<div id="cn-wmms"><img src="<?php print $base_path . $directory; ?>/images/wmms.gif" width="83" height="20" alt="<?php print t('Symbol of the Government of Canada'); ?>" title="<?php print t('Symbol of the Government of Canada'); ?>" /></div>
 
 				<!-- Banner begins / Début de la bannière -->
@@ -114,38 +114,22 @@
 
 					<!-- Common menu bar begins / Début de la barre de menu commune -->
 					<div id="cn-cmb">
-						<h2><?php print t('Common menu bar'); ?></h2>
-						<ul>
-							<li id="cn-cmb1">
-								<?php print languagelink($language->language); ?>
-							</li>
-							<li id="cn-cmb2">
-								<a href="#">
-									<?php print t('Home'); ?>
-								</a>
-							</li>
-							<li id="cn-cmb3">
-								<a href="#">
-									<?php print t('Contact us'); ?>
-								</a>
-							</li>
-							<li id="cn-cmb4">
-								<a href="#">
-									<?php print t('Help'); ?>
-								</a>
-							</li>
-							<li id="cn-cmb5">
-								<a href="#">
-									<?php print t('Search'); ?>
-								</a>
-							</li>
-							<li id="cn-cmb6">
-								<a href="#">
-									<?php print t('canada.gc.ca'); ?>
-								</a>
-							</li>
-						</ul>
-					</div>
+             <ul id="lang_selector">
+             <li id="lang_selector">
+              <?php print languagelink($language->language); ?>
+					  </li>
+            </ul>
+              
+              <?php 
+              print theme('links__system_main_menu', array(
+              'links' => $main_menu,
+              'attributes' => array(
+              'id' => 'main-menu',
+              'class' => array(
+                'links', 'inline', 'clearfix')
+              ), 
+              'heading' => t('Main menu'))); ?>       
+ 					</div>
 					<!-- Common menu bar ends / Fin de la barre de menu commune -->
 
 					<?php if ($breadcrumb): ?>
@@ -174,6 +158,10 @@
 		<div id="cn-centre-col" role="main">
 			<div id="cn-centre-col-inner">
 
+				<?php if (!empty($page['solrsearch'])): ?>
+					<?php print render($page['solrsearch']); ?>
+				<?php endif; ?>
+
 				<!-- Content title begins / Début du titre du contenu -->
 				<?php print render($title_prefix); ?>
 				<h1 id="cn-cont" class="title"><?php print $title; ?></h1>
@@ -187,7 +175,7 @@
 					<?php endif; ?>
 
 					<?php if ($tabs): ?>
-						<div class="tabs">
+						<div class="tabs_drupal">
 							<?php print render($tabs); ?>
 						</div>
 					<?php endif; ?>
@@ -268,6 +256,7 @@
 			</footer>
 		</div>
 	</div>
+	<div class="clear1">&nbsp;</div>
 	<!-- Footer ends / Fin du pied de page -->
 
 </div>

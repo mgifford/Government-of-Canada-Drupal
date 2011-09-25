@@ -35,7 +35,6 @@ dependencies[] = features
 dependencies[] = context
 dependencies[] = context_layouts
 dependencies[] = context_ui
-dependencies[] = strongleg
 dependencies[] = strongarm
 dependencies[] = variable
 dependencies[] = variable_admin
