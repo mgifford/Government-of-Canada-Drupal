@@ -343,7 +343,7 @@ function clf_breadcrumb($variables) {
     
     if (empty($breadcrumb)) {      
       $breadcrumb_separator = theme_get_setting('clf_breadcrumb_separator');
-      $home = '<a href="/">Home</a>';
+      $home = '<a href="/">'. t(Home) . '</a>';
       return '<div class="breadcrumb">' . $home . $breadcrumb_separator . '</div>';
     }
   }
