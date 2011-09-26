@@ -90,21 +90,21 @@ function govcan_setup_form() {
   $form['govcan_radioval1'] = array(
     '#type' => 'radios',
     '#title' => st('Enable Development Module(s)?'),
-    '#default_value' =>  variable_get('radio_val1', 0),
+    '#default_value' =>  variable_get('radio_val1', 1),
     '#options' => $options,
     '#description' => st('Modules that will assist with Development for the Government of Canada websites.'),
   );
   $form['govcan_radioval2'] = array(
     '#type' => 'radios',
     '#title' => st('Enable Workflow Module(s)?'),
-    '#default_value' =>  variable_get('radio_val2', 0),
+    '#default_value' =>  variable_get('radio_val2', 1),
     '#options' => $options,
     '#description' => st('Modules that will assist with Workflows for the Government of Canada websites.'),
   );
   $form['govcan_radioval3'] = array(
     '#type' => 'radios',
     '#title' => st('Enable CKEditor Module(s)?'),
-    '#default_value' =>  variable_get('radio_val3', 0),
+    '#default_value' =>  variable_get('radio_val3', 1),
     '#options' => $options,
     '#description' => st('Modules that relate to a WYSIWYG Editor (CKEditor).'),
   );
@@ -115,13 +115,13 @@ function govcan_setup_form() {
     '#options' => $options,
     '#description' => st('Modules that deal with Apache Solr Integration.'),
   );
-  //$form['govcan_radioval5'] = array(
-  //  '#type' => 'radios',
-  //  '#title' => st('Automatically Revert Features?'),
-  //  '#default_value' =>  variable_get('radio_val5', 0),
-  //  '#options' => $options,
-  //  '#description' => st('Revert already installed Features Automatically.'),
-  //);
+  $form['govcan_radioval5'] = array(
+    '#type' => 'radios',
+    '#title' => st('Add Default Node Content'),
+    '#default_value' =>  variable_get('radio_val5', 1),
+    '#options' => $options,
+    '#description' => st('Programmatically Created Node Content.'),
+  );
   $form[] = array(
     '#type' => 'submit',
     '#value' => st('Save and continue'),
@@ -136,7 +136,7 @@ function govcan_setup_form_submit($form, &$form_state) {
     variable_set('radio_val2', $form_state['values']['govcan_radioval2']);
     variable_set('radio_val3', $form_state['values']['govcan_radioval3']);
     variable_set('radio_val4', $form_state['values']['govcan_radioval4']);
-    //variable_set('radio_val5', $form_state['values']['govcan_radioval5']);
+    variable_set('radio_val5', $form_state['values']['govcan_radioval5']);
     
     // Load the file via file.fid
     //$file = file_load($form_state['values']['govcan_import_banner']);
@@ -168,7 +168,7 @@ function govcan_final_site_setup() {
   variable_del('radio_val2');
   variable_del('radio_val3');
   variable_del('radio_val4');
-  //variable_del('radio_val5');
+  variable_del('radio_val5');
   features_revert(array('global_initial_settings' => array('variable')));
 }
 
@@ -194,6 +194,16 @@ function govcan_addmodules() {
     $module_list = array('apachesolr','apachesolr_search','apachesolr_access','apachesolr_taxonomy','facetapi');
     module_enable($module_list, TRUE);
   }
+  if (variable_get('radio_val5', 0) == 1)
+  {
+    $body_txt1 = 'This is the body text I want entered with the node.';
+    $path_val1 = 'content/default';
+    $body_txt2 = 'This is the body text I want entered with the node. French';
+    $path_val2 = 'content/default';
+    add_node('article', 'Welcome to your Government of Canada Drupal Distribution', $body_txt1, 'filtered_html', $path_val1, 'en');
+    add_node('article', 'Bienvenue à votre gouvernement du Canada Drupal distribution française', $body_txt2, 'filtered_html', $path_val2, 'fr');
+  
+  }
 }
 
 function govcan_install_tasks_alter(&$tasks, $install_state) {
@@ -201,4 +211,17 @@ function govcan_install_tasks_alter(&$tasks, $install_state) {
   //$tasks['install_finished']['function'] = 'govcan_locale_addition';
 }
 
-
+function add_node($node_type, $node_title, $body_val, $format_val, $path, $language_type = LANGUAGE_NONE) {
+  $body_text = $body_val;
+  $node = new stdClass();
+  $node->type = $node_type;
+  node_object_prepare($node);
+  $node->title    = $node_title;
+  $node->language = $language_type;
+  $node->body[$node->language][0]['value']   = $body_text;
+  $node->body[$node->language][0]['summary'] = text_summary($body_text);
+  $node->body[$node->language][0]['format']  = $format_val;
+  $node->path = array('alias' => $path);
+  $node->status = 1;
+  node_save($node);
+}

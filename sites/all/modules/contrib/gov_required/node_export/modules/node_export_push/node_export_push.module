@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * The Node export post module.
+ *
+ * Allows a Node export to be posted directly from one site to another.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function node_export_push_menu() {
+  // Register a service URL for node exports to be pushed to.
+  return array(
+    'admin/content/node_export_push' => array(
+      'access arguments' => array('use PHP to import nodes'),
+      'page callback' => 'node_export_push_import',
+      'type' => MENU_CALLBACK,
+    )
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function node_export_push_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+
+    // Add the 'Push' button to the export form.
+    case 'node_export_form':
+
+      // Point the form to another Drupal site,
+      // but don't use clean URLs because we don't know if it's using them.
+      $form['#action'] = "{$destination}?q=admin/content/node_export_push";
+
+      $destination = variable_get('node_export_push_destination', url('<front>', array('absolute' => TRUE)));
+      $destination_name = variable_get('node_export_push_destination_name', t('this site'));
+      $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => t('Push'),
+        '#suffix' => t('!push the node to !site', array('!push' => '', '!site' => l($destination_name, $destination))),
+      );
+      $form['#attributes'] = array('target' => '_blank');
+      break;
+
+    // Add push-specific settings to the settings area.
+    case 'node_export_settings':
+      $form['basic']['push'] = array(
+        '#title' => t('Node export push settings'),
+        '#type' => 'fieldset',
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+      );
+      $form['basic']['push']['node_export_push_destination'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Destination URL'),
+        '#default_value' => variable_get('node_export_push_destination', url('<front>', array('absolute' => TRUE))),
+        '#description' => t('Base URL of the Drupal instance that nodes are to be pushed to (including trailing slash).'),
+      );
+      $form['basic']['push']['node_export_push_destination_name'] = array(
+        '#type' => 'textfield',
+        '#title' => t('Destination name'),
+        '#default_value' => variable_get('node_export_push_destination_name', t('this site')),
+        '#description' => t('Human-friendly name of the site nodes will be pushed to. The destination must also have the node_export_push module enabled.'),
+      );
+      break;
+    }
+}
+
+/**
+ * Process POST data and delegate the import to node_export.
+ */
+function node_export_push_import() {
+  // Process an import if we've been given one
+  if (isset($_POST['export'])) {
+    $node_code = $_POST['export'];
+    node_export_import($node_code, NULL, TRUE);
+  }
+}

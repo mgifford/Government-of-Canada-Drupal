@@ -5,7 +5,7 @@
  */
 
 /**
- * Implementation of hook_user_default_roles().
+ * Implements hook_user_default_roles().
  */
 function global_initial_settings_user_default_roles() {
   $roles = array();

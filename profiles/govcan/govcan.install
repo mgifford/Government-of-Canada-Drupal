@@ -384,16 +384,3 @@ function govcan_install() {
   variable_set('admin_theme', 'seven');
   variable_set('node_admin_theme', '1');
 }
-
-function add_node($node_type, $node_title, $body_val, $format_val, $language_type = LANGUAGE_NONE) {
-  $body_text = $body_val;
-  $node = new stdClass();
-  $node->type = $node_type;
-  node_object_prepare($node);
-  $node->title    = $node_title;
-  $node->language = $language_type;
-  $node->body[$node->language][0]['value']   = $body_text;
-  $node->body[$node->language][0]['summary'] = text_summary($body_text);
-  $node->body[$node->language][0]['format']  = $format_val;
-  node_save($node);
-}
