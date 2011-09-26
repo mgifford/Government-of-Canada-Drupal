@@ -196,13 +196,12 @@ function govcan_addmodules() {
   }
   if (variable_get('radio_val5', 0) == 1)
   {
-    $body_txt1 = 'This is the body text I want entered with the node.';
-    $path_val1 = 'content/default';
-    $body_txt2 = 'This is the body text I want entered with the node. French';
-    $path_val2 = 'content/default';
-    add_node('article', 'Welcome to your Government of Canada Drupal Distribution', $body_txt1, 'filtered_html', $path_val1, 'en');
-    add_node('article', 'Bienvenue à votre gouvernement du Canada Drupal distribution française', $body_txt2, 'filtered_html', $path_val2, 'fr');
-  
+    //$body_txt1 = 'This is the body text I want entered with the node.';
+    //$path_val1 = 'content/default';
+    //$body_txt2 = 'This is the body text I want entered with the node. French';
+    //$path_val2 = 'content/default';
+    //add_node('article', 'Welcome to your Government of Canada Drupal Distribution', $body_txt1, 'filtered_html', $path_val1, 'en');
+    //add_node('article', 'Bienvenue à votre gouvernement du Canada Drupal distribution française', $body_txt2, 'filtered_html', $path_val2, 'fr');
   }
 }
 
