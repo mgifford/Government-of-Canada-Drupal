@@ -196,12 +196,9 @@ function govcan_addmodules() {
   }
   if (variable_get('radio_val5', 0) == 1)
   {
-    //$body_txt1 = 'This is the body text I want entered with the node.';
-    //$path_val1 = 'content/default';
-    //$body_txt2 = 'This is the body text I want entered with the node. French';
-    //$path_val2 = 'content/default';
-    //add_node('article', 'Welcome to your Government of Canada Drupal Distribution', $body_txt1, 'filtered_html', $path_val1, 'en');
-    //add_node('article', 'Bienvenue à votre gouvernement du Canada Drupal distribution française', $body_txt2, 'filtered_html', $path_val2, 'fr');
+    $body_txt = 'This is the body text I want entered with the node';
+    add_node('article', 'Welcome to your Government of Canada Drupal Distribution', $body_txt, 'filtered_html', 'content/default', 'en');
+    add_translated_node('article', 'Bienvenue à votre gouvernement du Canada Drupal distribution française', $body_txt, 'filtered_html', 'content/default', 'fr');
   }
 }
 
@@ -210,17 +207,48 @@ function govcan_install_tasks_alter(&$tasks, $install_state) {
   //$tasks['install_finished']['function'] = 'govcan_locale_addition';
 }
 
-function add_node($node_type, $node_title, $body_val, $format_val, $path, $language_type = LANGUAGE_NONE) {
-  $body_text = $body_val;
+function add_node($node_type, $node_title, $bodytext, $format_val, $path, $language_type = LANGUAGE_NONE) {
   $node = new stdClass();
   $node->type = $node_type;
   node_object_prepare($node);
+  
   $node->title    = $node_title;
   $node->language = $language_type;
-  $node->body[$node->language][0]['value']   = $body_text;
-  $node->body[$node->language][0]['summary'] = text_summary($body_text);
-  $node->body[$node->language][0]['format']  = $format_val;
+  $node->uid      = 1;
+  $node->tnid     = 1;
+  $node->translate = 0;
+  
+  $node->body['und'][0]['value']   = $bodytext;
+  $node->body['und'][0]['summary'] = text_summary($bodytext);
+  $node->body['und'][0]['format']  = $format_val;
   $node->path = array('alias' => $path);
   $node->status = 1;
-  node_save($node);
+  
+  if($node = node_submit($node)) { // Prepare node for saving
+    node_save($node);
+    //return $node;
+  }
+}
+
+function add_translated_node($node_type, $node_title, $bodytext, $format_val, $path, $language_type = LANGUAGE_NONE) {
+  $node = new stdClass();
+  $node->type = $node_type;
+  node_object_prepare($node);
+  
+  $node->title    = $node_title;
+  $node->language = $language_type;
+  $node->uid      = 1;
+  $node->tnid     = 1;
+  $node->translate = 0;
+  
+  $node->body['und'][0]['value']   = $bodytext;
+  $node->body['und'][0]['summary'] = text_summary($bodytext);
+  $node->body['und'][0]['format']  = $format_val;
+  $node->path = array('alias' => $path);
+  $node->status = 1;
+  
+  if($node = node_submit($node)) { // Prepare node for saving
+    node_save($node);
+    //return $node;
+  } 
 }
