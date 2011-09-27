@@ -115,9 +115,9 @@ function govcan_install() {
   $types = array(
     array(
       'type' => 'page',
-      'name' => st('Basic page'),
+      'name' => st('Landing page'),
       'base' => 'node_content',
-      'description' => st("Use <em>basic pages</em> for your static content, such as an 'About us' page."),
+      'description' => st("Use <em>Landing pages</em> for your landing page content, such as an 'About us' page."),
       'custom' => 1,
       'modified' => 1,
       'locked' => 0,
@@ -168,7 +168,7 @@ function govcan_install() {
     rdf_mapping_save($rdf_mapping);
   }
 
-  // Default "Basic page" to not be promoted and have comments disabled.
+  // Default "Landing page" to not be promoted and have comments disabled.
   variable_set('node_options_page', array('status'));
   variable_set('comment_page', COMMENT_NODE_HIDDEN);
 
@@ -207,6 +207,18 @@ function govcan_install() {
   );
   taxonomy_vocabulary_save($vocabulary2);
   
+  //Get the vocabulary ID.
+  $vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = 'editorial_sections'")->fetchField();
+  
+  //Create a default Taxonomy based Access Control List to be used in conjunction with Workbench Access
+  $tid_main = govcan_create_taxonomy_term('Department', $vid, 0, 'Departmental Institution for the Government of Canada');
+  $tid_dept = govcan_create_taxonomy_term('Organizations', $vid, $tid_main, 'Organization(s) related to Department');
+  $tid_division = govcan_create_taxonomy_term('System Engineering Division', $vid, $tid_dept, 'The System Engineering Division');
+  govcan_groups_taxonomy_terms($vid, $tid_division);
+  $tid_division = govcan_create_taxonomy_term('Information Technology Services Division', $vid, $tid_dept, 'The Information Technology Services Division');
+  govcan_groups_taxonomy_terms($vid, $tid_division);
+  
+  //Field Implementation(s)
   $field = array(
     'field_name' => 'field_' . $vocabulary->machine_name,
     'type' => 'taxonomy_term_reference',
@@ -360,8 +372,8 @@ function govcan_install() {
     'weight' => '2',
   );
   $item4 = array(
-    'link_title' => st('statcan.gc.ca'),
-    'link_path' => 'http://www.statcan.gc.ca',
+    'link_title' => st('govcan.gc.ca'),
+    'link_path' => 'http://www.canada.gc.ca',
     'menu_name' => 'main-menu',
     'weight' => '4',
   );
@@ -383,4 +395,31 @@ function govcan_install() {
     ->execute();
   variable_set('admin_theme', 'seven');
   variable_set('node_admin_theme', '1');
+}
+
+/**
+ * Create groups for parent taxonomy term
+ */
+function govcan_groups_taxonomy_terms($vid, $tid)
+{
+  govcan_create_taxonomy_term('Administrator', $vid, $tid, 'Administrator for System Engineering Division');
+  govcan_create_taxonomy_term('CMS Administrator', $vid, $tid, 'CMS Administrator for System Engineering Division');
+  govcan_create_taxonomy_term('Information Architect', $vid, $tid, 'Information Architect for System Engineering Division');
+  govcan_create_taxonomy_term('Information Developer', $vid, $tid, 'Information Developer for System Engineering Division');
+  govcan_create_taxonomy_term('Author', $vid, $tid, 'Author for System Engineering Division');
+  govcan_create_taxonomy_term('Module Manager', $vid, $tid, 'Module Manager for System Engineering Division');
+  govcan_create_taxonomy_term('Stakeholder', $vid, $tid, 'Stakeholder for System Engineering Division');
+}
+
+/**
+ * Create a taxonomy term and return the tid.
+ */
+function govcan_create_taxonomy_term($name, $vid, $parent, $description) {
+  $term = new stdClass();
+  $term->name = $name;
+  $term->vid = $vid;
+  $term->parent = $parent;
+  $term->description = $description;
+  taxonomy_term_save($term);
+  return $term->tid;
 }

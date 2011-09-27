@@ -15,8 +15,8 @@ function global_initial_settings_form_alter(&$form, $form_state, $form_id){
 }
 
 function global_initial_settings_page_alter(&$page) {
-global $user;
-if ($user->uid == 1) {
-unset($page['page_top']['toolbar']);
-}
+  global $user;
+  if ($user->uid == 1) {
+    unset($page['page_top']['toolbar']);
+  }
 }

@@ -196,59 +196,12 @@ function govcan_addmodules() {
   }
   if (variable_get('radio_val5', 0) == 1)
   {
-    $body_txt = 'This is the body text I want entered with the node';
-    add_node('article', 'Welcome to your Government of Canada Drupal Distribution', $body_txt, 'filtered_html', 'content/default', 'en');
-    add_translated_node('article', 'Bienvenue à votre gouvernement du Canada Drupal distribution française', $body_txt, 'filtered_html', 'content/default', 'fr');
+    include_once DRUPAL_ROOT . '/profiles/govcan/includes/govcan.node.inc';
+    govcan_nodes();
   }
 }
 
 function govcan_install_tasks_alter(&$tasks, $install_state) {
   // Replace the "Install Finished" installation task provided by Drupal core
   //$tasks['install_finished']['function'] = 'govcan_locale_addition';
-}
-
-function add_node($node_type, $node_title, $bodytext, $format_val, $path, $language_type = LANGUAGE_NONE) {
-  $node = new stdClass();
-  $node->type = $node_type;
-  node_object_prepare($node);
-  
-  $node->title    = $node_title;
-  $node->language = $language_type;
-  $node->uid      = 1;
-  $node->tnid     = 1;
-  $node->translate = 0;
-  
-  $node->body['und'][0]['value']   = $bodytext;
-  $node->body['und'][0]['summary'] = text_summary($bodytext);
-  $node->body['und'][0]['format']  = $format_val;
-  $node->path = array('alias' => $path);
-  $node->status = 1;
-  
-  if($node = node_submit($node)) { // Prepare node for saving
-    node_save($node);
-    //return $node;
-  }
-}
-
-function add_translated_node($node_type, $node_title, $bodytext, $format_val, $path, $language_type = LANGUAGE_NONE) {
-  $node = new stdClass();
-  $node->type = $node_type;
-  node_object_prepare($node);
-  
-  $node->title    = $node_title;
-  $node->language = $language_type;
-  $node->uid      = 1;
-  $node->tnid     = 1;
-  $node->translate = 0;
-  
-  $node->body['und'][0]['value']   = $bodytext;
-  $node->body['und'][0]['summary'] = text_summary($bodytext);
-  $node->body['und'][0]['format']  = $format_val;
-  $node->path = array('alias' => $path);
-  $node->status = 1;
-  
-  if($node = node_submit($node)) { // Prepare node for saving
-    node_save($node);
-    //return $node;
-  } 
 }

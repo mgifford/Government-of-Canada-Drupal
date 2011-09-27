@@ -118,6 +118,11 @@ ul.primary li a:hover{
     margin-bottom: 20px;
 }
 
+/* Node Bottom Links */
+
+.region-content ul.inline li {
+    padding: 0px 0.5em 0px 0px;
+}
 
 
 
