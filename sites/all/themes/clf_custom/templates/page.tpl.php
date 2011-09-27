@@ -115,7 +115,7 @@
 					<!-- Common menu bar begins / Début de la barre de menu commune -->
 					<div id="cn-cmb">
              <ul id="lang_selector">
-             <li id="lang_selector">
+             <li id="lang_selector_attribute">
               <?php print languagelink($language->language); ?>
 					  </li>
             </ul>
@@ -162,12 +162,14 @@
 					<?php print render($page['solrsearch']); ?>
 				<?php endif; ?>
 
-				<!-- Content title begins / Début du titre du contenu -->
-				<?php print render($title_prefix); ?>
-				<h1 id="cn-cont" class="title"><?php print $title; ?></h1>
-				<?php print render($title_suffix); ?>
-				<!-- Content Title ends / Fin du titre du contenu -->
-
+        <?php if (!$is_front): ?>
+          <!-- Content title begins / Début du titre du contenu -->
+          <?php print render($title_prefix); ?>
+          <h1 id="cn-cont" class="title"><?php print $title; ?></h1>
+          <?php print render($title_suffix); ?>
+          <!-- Content Title ends / Fin du titre du contenu -->
+        <?php endif; ?>
+          
 				<section>
 
 					<?php if (!empty($messages)): ?>

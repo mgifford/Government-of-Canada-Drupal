@@ -41,7 +41,7 @@
  * @see template_process()
  */
 ?>
-<div id="sectionblock">
+<div class="sectionblock">
 <section>
 	<?php if ($block->subject): ?>
 		<h3><?php print $block->subject ?></h3>
