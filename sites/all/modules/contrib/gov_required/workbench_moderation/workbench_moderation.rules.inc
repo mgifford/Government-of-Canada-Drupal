@@ -89,6 +89,7 @@ function workbench_moderation_rules_event_info() {
  */
 function workbench_moderation_rules_action_info() {
   $items = array();
+
   $items['workbench_moderation_set_state'] = array(
     'label' => t("Set moderation state"),
     'group' => t("Node"),
@@ -180,9 +181,11 @@ function workbench_moderation_rules_condition_contents_current_state($node, $mod
   if (!is_object($node)) {
     return FALSE;
   }
+
   if ($node->workbench_moderation['current']->state != $moderation_state) {
     return FALSE;
   }
+
   return TRUE;
 }
 
@@ -202,6 +205,7 @@ function workbench_moderation_set_state_rules_action($node, $moderation_state) {
   if (is_object($node) && !empty($moderation_state)){
     actions_do('workbench_moderation_set_state_action', $node, array('state' => $moderation_state));
   }
+
   return array('node' => $node);
 }
 

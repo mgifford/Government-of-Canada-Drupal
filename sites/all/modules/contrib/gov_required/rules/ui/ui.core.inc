@@ -621,9 +621,9 @@ class RulesPluginUI extends FacesExtender implements RulesPluginUIInterface {
       elseif (isset($this->element->settings[$name]) && (!isset($parameter['default value']) || $parameter['default value'] != $this->element->settings[$name])) {
         $method = empty($parameter['options list']) ? 'render' : 'renderOptionsLabel';
         $class = $this->getDataTypeClass($parameter['type']);
-        if (method_exists($class, $method)) {
-          $element = call_user_func(array($class, $method), $this->element->settings[$name], $name, $parameter, $this->element);
-        }
+        // We cannot use method_exists() here as it would trigger a PHP bug,
+        // @see http://drupal.org/node/1258284
+        $element = call_user_func(array($class, $method), $this->element->settings[$name], $name, $parameter, $this->element);
       }
       // Only add parameters that are really configured / not default.
       if ($element) {
@@ -649,6 +649,13 @@ class RulesPluginUI extends FacesExtender implements RulesPluginUIInterface {
     // Add integrity exception messages if there are any for this element.
     try {
       $this->element->integrityCheck();
+      // A configuration is still marked as dirty, but already works again.
+      if (!empty($this->element->dirty)) {
+        rules_config_update_dirty_flag($this->element);
+        $variables = array('%label' => $this->element->label(), '%name' => $this->element->name, '@plugin' => $this->element->plugin());
+        drupal_set_message(t('The @plugin %label (%name) was marked dirty, but passes the integrity check now and is active again.', $variables));
+        rules_clear_cache();
+      }
     }
     catch (RulesIntegrityException $e) {
       $content['description']['integrity'] = array(
@@ -659,7 +666,13 @@ class RulesPluginUI extends FacesExtender implements RulesPluginUIInterface {
           '#markup' => filter_xss($e->getMessage()),
         ),
       );
+      // Also make sure the rule is marked as dirty.
+      if (empty($this->element->dirty)) {
+        rules_config_update_dirty_flag($this->element);
+        rules_clear_cache();
+      }
     }
+
     $content['#suffix'] = '</div>';
     $content['#type'] = 'container';
     $content['#attributes']['class'][] = 'rules-element-content';
