@@ -10,7 +10,7 @@ function govcan_form_install_configure_form_alter(&$form, $form_state) {
   $form['site_information']['site_name']['#default_value'] = 'Government of Canada Prototype';
   $form['site_information']['site_mail']['#default_value'] = 'first.last@department.gc.ca';
   $form['admin_account']['account']['name']['#default_value'] = 'admin';
-  $form['admin_account']['account']['mail']['#default_value'] = 'first.last@deptartment.gc.ca';
+  $form['admin_account']['account']['mail']['#default_value'] = 'first.last@department.gc.ca';
   $form['server_settings']['site_default_country']['#default_value'] = 'CA';
 }
 
