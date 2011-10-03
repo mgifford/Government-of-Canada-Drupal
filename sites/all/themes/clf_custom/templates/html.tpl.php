@@ -46,8 +46,6 @@
   "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print $language->language; ?>" version="XHTML+RDFa 1.0" dir="<?php print $language->dir; ?>"<?php print $rdf_namespaces; ?>>
 	<head>
-		<?php print $head; ?>
-
 		<!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
 		Terms and conditions of use: http://tbs-sct.ircan.gc.ca/projects/gcwwwtemplates/wiki/Terms
 		Conditions régissant l'utilisation : http://tbs-sct.ircan.gc.ca/projects/gcwwwtemplates/wiki/Conditions
@@ -58,15 +56,26 @@
 		<!-- Title ends / Fin du titre -->
 
 		<!-- Meta-data begins / Début des métadonnées -->
-		<meta name="dcterms.description" content="English description / Description en anglais" />
-		<meta name="description" content="English description / Description en anglais" />
+    
+    <?php print $head; ?>
+    <meta name="title" content="<?php print $head_title; ?>" />
+    <meta name="dc.title" content="<?php print $head_title; ?>" />
+    <?php if ($language->language == 'en'): ?>
+    <meta name="dc.creator" content="Government of Canada | Gouvernment du Canada" />
+    <meta name="dc.language" scheme="ISO639-2/T" content="eng" />
+    <?php endif; ?>
+    <?php if ($language->language == 'fr'): ?>
+    <meta name="dc.creator" content="Gouvernment du Canada | Government of Canada" />
+    <meta name="dc.language" scheme="ISO639-2/T" content="fra" />
+    <?php endif; ?>
+    
+    <meta name="description" content="English description / Description en anglais" />
+		<meta name="dc.description" content="English description / Description en anglais" />
 		<meta name="keywords" content="English keywords / Mots-clés en anglais" />
-		<meta name="dcterms.creator" content="English name of the content author / Nom en anglais de l'auteur du contenu" />
-		<meta name="dcterms.title" content="<?php print $head_title; ?>" />
-		<meta name="dcterms.issued" title="W3CDTF" content="Date published (YYYY-MM-DD) / Date de publication (AAAA-MM-JJ)" />
-		<meta name="dcterms.modified" title="W3CDTF" content="Date modified (YYYY-MM-DD) / Date de modification (AAAA-MM-JJ)" />
-		<meta name="dcterms.subject" title="scheme" content="English subject terms / Termes de sujet en anglais" />
-		<meta name="dcterms.language" title="ISO639-2" content="<?php print ('eng')?>" />
+		<meta name="dc.issued" title="W3CDTF" content="Date published (YYYY-MM-DD) / Date de publication (AAAA-MM-JJ)" />
+		<meta name="dc.modified" title="W3CDTF" content="Date modified (YYYY-MM-DD) / Date de modification (AAAA-MM-JJ)" />
+		<meta name="dc.subject" title="scheme" content="English subject terms / Termes de sujet en anglais" />
+		
 		<!-- Meta-data ends / Fin des métadonnées -->
 
 		<!-- WET scripts/CSS begin / Début des scripts/CSS de la BOEW -->

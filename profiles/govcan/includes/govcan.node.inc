@@ -49,7 +49,7 @@ function add_translatable_node($node_type, $translate_id, $node_title, $bodytext
   $node->translate = 0;
   
   $node->body['und'][0]['value']   = $bodytext;
-  //$node->body['und'][0]['summary'] = text_summary($bodytext);
+  $node->body['und'][0]['summary'] = text_summary($bodytext);
   $node->body['und'][0]['format']  = $format_val;
   $node->status = 1;
   
