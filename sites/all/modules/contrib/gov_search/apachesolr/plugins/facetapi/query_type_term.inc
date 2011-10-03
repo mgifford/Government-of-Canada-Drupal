@@ -40,6 +40,12 @@ class ApacheSolrFacetapiTerm extends FacetapiQueryType implements FacetapiQueryT
     $limit = empty($settings->settings['hard_limit']) ? 20 : (int) $settings->settings['hard_limit'];
     $query->addParam('f.' . $this->facet['field'] . '.facet.limit', $limit);
 
+    // Adds "facet mincount" parameter to limit the number of facets.
+    if (isset($settings->settings['facet_mincount'])) {
+      $count = $settings->settings['facet_mincount'];
+      $query->addParam('f.' . $this->facet['field'] . '.facet.mincount', $count);
+    }
+
     $active = $this->adapter->getActiveItems($this->facet);
 
     // Adds filter based on the operator.

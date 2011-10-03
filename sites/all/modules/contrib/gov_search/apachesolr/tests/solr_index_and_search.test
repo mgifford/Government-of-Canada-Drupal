@@ -76,13 +76,10 @@ class DrupalSolrWebTestCase extends DrupalWebTestCase {
 }
 
 class DrupalSolrMatchTestCase extends DrupalSolrWebTestCase {
-  /**
-   * Implements getInfo().
-   */
-  function getInfo() {
+  public static function getInfo() {
     return array(
-      'name' => t('Solr Index Queries'),
-      'description' => t('Indexes content and queries it.'),
+      'name' => 'Solr Index Queries',
+      'description' => 'Indexes content and queries it.',
       'group' => 'ApacheSolr',
     );
   }

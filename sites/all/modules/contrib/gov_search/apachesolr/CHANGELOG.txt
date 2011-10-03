@@ -4,6 +4,24 @@ Apache Solr integration 7.x-1.x-xxxx, xxxx-xx-xx
 
 Apache Solr integration 7.x-1.0-xxxx, 2011-xx-xx
 ------------------------------
+#1167136 by cpliakas: fix for fields attached to nodes added as facets regardless off the collection type.
+#1225554 by pwolanin: fix for pagination missing in the search page administration.
+#817286  by pfrenssen: API docs cleanup.
+#901376  by LiuShaz, pwolanin: insure UTF-8 encoding is used for POST searches.
+#1288080 by Nick_vh, brianV: make facets based on date fields work.
+#1201534 by BrianV, pwolanin: restore date field indexing.
+#1230380 by Shawn_Smiley: fix for Undefined index: 'facet mincount allowed'.
+#1292328 by Nick_vh: add clone environment feature, tweak the UI.
+#1187888 by pwolanin: move conf to a subdirectory and start supporting solr 3.3+.
+#1237472 by DeFr, sfyn: Fix for _constructURL method misforms urls with username/password.
+#1258658 by pwolanin: Fix failing node access test due to core 7.3 change.
+#1248366 by Dave Reid: Fix declaration of getInfo() test functions.
+#1219178 by cpliakas: Added support for customizable minimum facet counts.
+#1216184 by cpliakas: remove unneeded static variable.
+#1204450 by blazey: fix for parameter error in apachesolr_taxonomy module.
+#1150174 by mr.andrey, pwolanin: Strip content of script and similar tags when indexing.
+#1183742 by MrHaroldA, pwolanin: Index all numeric field API fields by default.
+#1188614 by ASupinski: Expand Hook_Hook_Info to include other hooks.
 
 Apache Solr integration 7.x-1.0-beta8, 2011-06-13
 ------------------------------

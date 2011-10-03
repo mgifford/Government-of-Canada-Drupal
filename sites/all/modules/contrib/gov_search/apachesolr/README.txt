@@ -35,8 +35,11 @@ subscribed to a service like Acquia Search.
 The Debian/Ubuntu packages for Solr should NOT be used to install Solr.
 For example, do NOT install the solr or solr-jetty packages.
 
-Download the latest Solr 1.4.x release (e.g. 1.4.1) from:
+Download the latest Solr 1.4.x or 3.x release (e.g. 1.4.1 or 3.4.0) from:
 http://www.apache.org/dyn/closer.cgi/lucene/solr/
+
+Apache Lucene 3.1, 3.2 or 3.3, have a possible index corruption bug on
+server crash or power loss (LUCENE-3418), so Solr  3.4.0 is preferred.
 
 Unpack the tarball somewhere not visible to the web (not in your webserver
 docroot and not inside of your Drupal directory).
@@ -46,16 +49,17 @@ testing, development, and even for smaller production sites. This
 application is found at apache-solr-1.4.1/example.
 
 Move apache-solr-1.4.1/example/solr/conf/schema.xml and rename it to
-something like schema.bak. Then move the schema.xml that comes with the
-ApacheSolr Drupal module to take its place.
+something like schema.bak. Then move the solr-conf/schema.xml that
+comes with this Drupal module to take its place. If you are using
+Solr 3.3 or later, you can use solr-conf/schema-solr3x.xml instead.
 
 Similarly, move apache-solr-1.4.1/example/solr/conf/solrconfig.xml and rename
-it like solrconfig.bak. Then move the solrconfig.xml that comes with the
-ApacheSolr Drupal module to take its place.
+it like solrconfig.bak. Then move the solr-conf/solrconfig.xml that comes
+with this module to take its place.
 
 Finally, move apache-solr-1.4.1/example/solr/conf/protwords.txt and rename
-it like protwords.bak. Then move the protwords.txt that comes with the
-ApacheSolr Drupal module to take its place.
+it like protwords.bak. Then move the solr-conf/protwords.txt that comes
+with this module to take its place.
 
 Make sure that the conf directory includes the following files - the Solr core
 may not load if you don't have at least an empty file present:
