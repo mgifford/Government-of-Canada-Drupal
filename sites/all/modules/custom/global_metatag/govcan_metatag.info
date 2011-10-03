@@ -1,0 +1,6 @@
+name = GovCan MetaTag
+description = Provides additional support for Government of Canada MetaTags.
+package = Meta tags
+core = 7.x
+dependencies[] = metatag
+

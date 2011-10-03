@@ -54,12 +54,9 @@
 		<!-- Title begins / Début du titre -->
 		<title><?php print $head_title; ?></title>
 		<!-- Title ends / Fin du titre -->
-
-		<!-- Meta-data begins / Début des métadonnées -->
     
-    <?php print $head; ?>
+		<!-- Specified Meta-data begins / Début des métadonnées -->
     <meta name="title" content="<?php print $head_title; ?>" />
-    <meta name="dc.title" content="<?php print $head_title; ?>" />
     <?php if ($language->language == 'en'): ?>
     <meta name="dc.creator" content="Government of Canada | Gouvernment du Canada" />
     <meta name="dc.language" scheme="ISO639-2/T" content="eng" />
@@ -68,15 +65,11 @@
     <meta name="dc.creator" content="Gouvernment du Canada | Government of Canada" />
     <meta name="dc.language" scheme="ISO639-2/T" content="fra" />
     <?php endif; ?>
+  	<!-- Specified Meta-data ends / Fin des métadonnées -->
     
-    <meta name="description" content="English description / Description en anglais" />
-		<meta name="dc.description" content="English description / Description en anglais" />
-		<meta name="keywords" content="English keywords / Mots-clés en anglais" />
-		<meta name="dc.issued" title="W3CDTF" content="Date published (YYYY-MM-DD) / Date de publication (AAAA-MM-JJ)" />
-		<meta name="dc.modified" title="W3CDTF" content="Date modified (YYYY-MM-DD) / Date de modification (AAAA-MM-JJ)" />
-		<meta name="dc.subject" title="scheme" content="English subject terms / Termes de sujet en anglais" />
-		
-		<!-- Meta-data ends / Fin des métadonnées -->
+    <!-- Module Driven Meta-data begins / Début des métadonnées -->
+    <?php print $head; ?>
+    <!-- Module Driven Meta-data ends / Fin des métadonnées -->
 
 		<!-- WET scripts/CSS begin / Début des scripts/CSS de la BOEW -->
 		<?php print $styles; ?>

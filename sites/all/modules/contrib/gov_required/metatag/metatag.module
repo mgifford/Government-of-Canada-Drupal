@@ -168,7 +168,6 @@ function metatag_config_save($config) {
 
   // Clear any caches.
   metatag_config_cache_clear();
-  //metatag_metatag_cache_clear($type);
 }
 
 /**
@@ -181,17 +180,15 @@ function metatag_config_delete($instance) {
 
   // Clear any caches.
   metatag_config_cache_clear();
-  //metatag_metatag_cache_clear($type);
 }
 
 /**
  * Clear the metatag configuration cache.
  */
 function metatag_config_cache_clear() {
-  cache_clear_all('config:', 'cache_metatag', TRUE);
-  cache_clear_all('ctools_export', 'cache_metatag', TRUE);
+  cache_clear_all('*', 'cache_metatag', TRUE);
   drupal_static_reset('metatag_config_load_with_defaults');
-  //ctools_export_load_object_reset();
+  ctools_export_load_object_reset('metatag_config');
 }
 
 function metatag_metatags_load($type, $id) {
@@ -341,10 +338,18 @@ function metatag_field_attach_view_alter(&$output, $context) {
       // Build options for meta tag rendering. The context variable already
       // contains entity type, entity, view mode, language, etc.
       $options = $context;
+
       // Ensure we actually pass a language object rather than language code.
       $languages = language_list();
-      $options['language'] = $languages[$context['language']];
-      $options['token data'][token_get_entity_mapping('entity', $entity_type)] = $context['entity'];
+      if (isset($context['language']) && isset($languages[$context['language']])) {
+        $options['language'] = $languages[$context['language']];
+      }
+
+      // Reload the entity object from cache as it may have been altered by Panels.
+      $token_type = token_get_entity_mapping('entity', $entity_type);
+      $entities = entity_load($entity_type, array($entity_id));
+      $options['token data'][$token_type] = $entities[$entity_id];
+      $options['entity'] = $entities[$entity_id];
 
       // Render the metatags and save to the cache.
       $output['metatags'] = metatag_metatags_view($instance, $metatags, $options);
@@ -443,11 +448,6 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     '#tree' => TRUE,
     '#access' => user_access('edit meta tags') || user_access('administer meta tags'),
     '#weight' => 10,
-    '#attached' => array(
-      'js' => array(
-        drupal_get_path('module', 'metatag') . '/metatag.vertical-tabs.js',
-      ),
-    ),
     '#attributes' => array(
       'class' => array('metatags-form'),
     ),
@@ -458,6 +458,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   foreach (element_children($form) as $key) {
     if (isset($form[$key]['#type']) && $form[$key]['#type'] == 'vertical_tabs') {
       $form['metatags']['#group'] = $key;
+      $form['metatags']['#attached']['js'][] = drupal_get_path('module', 'metatag') . '/metatag.vertical-tabs.js';
       break;
     }
   }
@@ -721,7 +722,27 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
   $options['token types'] = array(token_get_entity_mapping('entity', $entity_type));
   $options['context'] = $entity_type;
 
-  metatag_metatags_form($form, $instance, $metatags, $options);
+  // @todo Remove metatag_form_alter() when http://drupal.org/node/1284642 is fixed in core.
+  //metatag_metatags_form($form, $instance, $metatags, $options);
+
+  $form['#metatags'] = array(
+    'instance' => $instance,
+    'metatags' => $metatags,
+    'options' => $options,
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * @todo Remove this when http://drupal.org/node/1284642 is fixed in core.
+ */
+function metatag_form_alter(&$form, $form_state, $form_id) {
+  if (!empty($form['#metatags']) && !isset($form['metatags'])) {
+    extract($form['#metatags']);
+    metatag_metatags_form($form, $instance, $metatags, $options);
+    unset($form['#metatags']);
+  }
 }
 
 /**
