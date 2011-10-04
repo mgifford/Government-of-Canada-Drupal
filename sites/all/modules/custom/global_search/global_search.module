@@ -1,0 +1,9 @@
+<?php
+/**
+ * @file
+ * Code for the global_search feature.
+ */
+
+include_once('global_search.features.inc');
+
+

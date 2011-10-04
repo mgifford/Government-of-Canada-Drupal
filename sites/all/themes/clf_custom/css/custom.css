@@ -130,9 +130,24 @@ ul.primary li a:hover{
   float: left;
 }
 
+/* FacetAPI Styling Solr */
 
+.block-facetapi h3 {
+    border: none !important;
+    background-color: #c0c0c0 !important;
+}
 
+#block-facetapi-apachesolr\@solr\:current_search li {
+    padding: 3px 5px 3px 10px;
+}
 
+.block-facetapi .facetapi-active {
+    display: inline;
+}
+
+#block-facetapi-apachesolr\@solr\:current_search li a {
+    display: inline;
+}
 
 
 
