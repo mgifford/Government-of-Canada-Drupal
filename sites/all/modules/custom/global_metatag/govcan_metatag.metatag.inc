@@ -72,7 +72,7 @@ function govcan_metatag_metatag_info() {
   
   $info['tags']['dc:site_name'] = array(
     'label' => t('GovCan MetaData site name'),
-    'description' => t('A human-readable name for your site, e.g., <em>IMDb</em>.'),
+    'description' => t('A human-readable name for your site, e.g., <em>Government of Canada</em>.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'govcan-metadata',
     'context' => array('global'),
@@ -83,7 +83,7 @@ function govcan_metatag_metatag_info() {
   
   $info['tags']['dc:url'] = array(
     'label' => t('GovCan MetaData URL'),
-    'description' => t('The canonical URL of your object that will be used as its permanent ID in the graph, e.g., <em>http://www.imdb.com/title/tt0117500/</em>.'),
+    'description' => t('The canonical URL of your object that will be used as its permanent ID in the website, for example:, <em>http://www.govcan.gc.ca/policy/</em>.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'govcan-metadata',
     'element' => array(
@@ -130,10 +130,10 @@ function govcan_metatag_metatag_info() {
       '#theme' => 'govcan_metatag_scheme',
     ),
   );
-  
+    
   $info['tags']['author'] = array(
     'label' => t('GovCan MetaData Author'),
-    'description' => t('The Author of the page.'),
+    'description' => t('The main Author of the page.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'govcan-metadata',
     'element' => array(
@@ -143,7 +143,7 @@ function govcan_metatag_metatag_info() {
 
   $info['tags']['dc:type'] = array(
     'label' => t('GovCan MetaData type'),
-    'description' => t('The type of your object, e.g., <em>Graph</em>.'),
+    'description' => t('The type of your object, for example:, <em>Graph</em>.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'govcan-metadata',
     'form' => array(
@@ -158,7 +158,7 @@ function govcan_metatag_metatag_info() {
   
   $info['tags']['dc:image'] = array(
     'label' => t('GovCan MetaData image'),
-    'description' => t('An image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. We support PNG, JPEG and GIF formats.'),
+    'description' => t('An image URL which should represent your object within the page. (PNG, JPEG and GIF formats)'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'govcan-metadata',
     'element' => array(

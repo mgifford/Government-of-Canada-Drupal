@@ -27,7 +27,7 @@ function govcan_metatag_theme() {
  */
 function theme_govcan_metatag($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array('#name' => 'property', '#value' => 'content'));
+  element_set_attributes($element, array('#name' => 'name', '#value' => 'content'));
   unset($element['#value']);
   return theme_html_tag($variables);
 }
@@ -37,7 +37,7 @@ function theme_govcan_metatag($variables) {
  */
 function theme_govcan_metatag_scheme($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array('#name' => 'property', '#value' => 'content'));
+  element_set_attributes($element, array('#name' => 'name', '#value' => 'content'));
   $element['#attributes']['scheme'] = 'W3CDTF';
   unset($element['#value']);
   return theme_html_tag($variables);
